@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Dashboard & Settings Elements
   const speedDisplay = document.getElementById('speedDisplay');
+  const videoSpeedBadge = document.getElementById('videoSpeedBadge');
   const stepSelect = document.getElementById('stepSelect');
   const togglePresetsBtn = document.getElementById('togglePresetsBtn');
   const presetsPanel = document.getElementById('presetsPanel');
@@ -159,6 +160,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateSpeedometerDisplay() {
     speedDisplay.textContent = currentSpeed.toFixed(2) + 'x';
+    
+    // Update Video Speed Badge
+    if (videoSpeedBadge) {
+      videoSpeedBadge.textContent = currentSpeed.toFixed(2) + 'x';
+      if (Math.abs(currentSpeed - 1.0) > 0.01) {
+        videoSpeedBadge.classList.add('active-speed');
+      } else {
+        videoSpeedBadge.classList.remove('active-speed');
+      }
+      
+      // Trigger pop animation
+      videoSpeedBadge.classList.remove('pop');
+      void videoSpeedBadge.offsetWidth; // Force reflow
+      videoSpeedBadge.classList.add('pop');
+      setTimeout(() => {
+        videoSpeedBadge.classList.remove('pop');
+      }, 300);
+    }
     
     // Sync active state on presets grid
     presetButtons.forEach(btn => {

@@ -1,7 +1,7 @@
 // --- Tempo Player Content Script ---
 
 // State variables (runtime only, no persistence per requirements)
-let speedStep = 0.10;
+let speedStep = 0.25;
 let hudTimeout = null;
 
 // --- Helper: Find the most active video player on the page ---
@@ -101,6 +101,156 @@ function showSpeedHUD(speed) {
     card.classList.remove('show');
   }, 1000);
 }
+
+// --- Shadow DOM Video Speed Badge ---
+function createOrUpdateBadge(video) {
+  if (!video || !video.isConnected) return;
+  
+  const parent = video.parentElement;
+  if (!parent) return;
+
+  // Ensure parent is positioned to host our absolute badge
+  const computedStyle = window.getComputedStyle(parent);
+  if (computedStyle.position === 'static') {
+    parent.style.position = 'relative';
+  }
+
+  let badgeHost = parent.querySelector('.__tempo_video_badge_host__');
+  let badge = null;
+
+  if (!badgeHost) {
+    badgeHost = document.createElement('div');
+    badgeHost.className = '__tempo_video_badge_host__';
+    badgeHost.style.cssText = `
+      position: absolute !important;
+      top: 12px !important;
+      right: 12px !important;
+      z-index: 2147483647 !important;
+      pointer-events: auto !important;
+      width: auto !important;
+      height: auto !important;
+    `;
+    
+    const shadow = badgeHost.attachShadow({ mode: 'open' });
+    
+    const style = document.createElement('style');
+    style.textContent = `
+      .tempo-badge {
+        font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: rgba(15, 23, 42, 0.75) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        color: #ffffff !important;
+        padding: 4px 10px !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        font-weight: 600 !important;
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        cursor: default !important;
+        user-select: none !important;
+        opacity: 0.35;
+        transform: scale(1);
+        transition: opacity 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, border-color 0.3s ease !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap !important;
+      }
+      .tempo-badge.active-speed {
+        opacity: 0.85;
+        background: rgba(15, 23, 42, 0.8) !important;
+        border-color: rgba(99, 102, 241, 0.5) !important;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2), 0 0 8px rgba(99, 102, 241, 0.1) !important;
+      }
+      .tempo-badge:hover {
+        opacity: 1 !important;
+        transform: scale(1.05) !important;
+        background: rgba(15, 23, 42, 0.9) !important;
+        border-color: rgba(99, 102, 241, 0.8) !important;
+      }
+      .tempo-badge.pop {
+        transform: scale(1.3) !important;
+        background: rgba(99, 102, 241, 0.95) !important;
+        border-color: rgba(255, 255, 255, 0.6) !important;
+        opacity: 1 !important;
+      }
+    `;
+    shadow.appendChild(style);
+    
+    badge = document.createElement('div');
+    badge.id = 'tempo-badge-element';
+    badge.className = 'tempo-badge';
+    shadow.appendChild(badge);
+    
+    parent.appendChild(badgeHost);
+  } else {
+    badge = badgeHost.shadowRoot.getElementById('tempo-badge-element');
+  }
+
+  if (badge) {
+    const currentSpeed = video.playbackRate;
+    badge.textContent = `${currentSpeed.toFixed(2)}x`;
+    
+    if (Math.abs(currentSpeed - 1.0) > 0.01) {
+      badge.classList.add('active-speed');
+    } else {
+      badge.classList.remove('active-speed');
+    }
+  }
+}
+
+function triggerBadgePop(video) {
+  if (!video) return;
+  const parent = video.parentElement;
+  if (!parent) return;
+  const badgeHost = parent.querySelector('.__tempo_video_badge_host__');
+  if (badgeHost && badgeHost.shadowRoot) {
+    const badge = badgeHost.shadowRoot.getElementById('tempo-badge-element');
+    if (badge) {
+      badge.classList.remove('pop');
+      void badge.offsetWidth; // force reflow
+      badge.classList.add('pop');
+      setTimeout(() => {
+        badge.classList.remove('pop');
+      }, 300);
+    }
+  }
+}
+
+function handleRateChange(video) {
+  createOrUpdateBadge(video);
+  triggerBadgePop(video);
+}
+
+function scanAndSetupVideos() {
+  const videos = document.querySelectorAll('video');
+  videos.forEach(video => {
+    if (!video.__tempo_badge_setup) {
+      video.__tempo_badge_setup = true;
+      
+      createOrUpdateBadge(video);
+      
+      video.addEventListener('ratechange', () => {
+        handleRateChange(video);
+      });
+      
+      video.addEventListener('play', () => {
+        createOrUpdateBadge(video);
+      });
+    } else {
+      const parent = video.parentElement;
+      if (parent && !parent.querySelector('.__tempo_video_badge_host__')) {
+        createOrUpdateBadge(video);
+      }
+    }
+  });
+}
+
+// Start scanning for videos and setup badges
+setInterval(scanAndSetupVideos, 1000);
+scanAndSetupVideos();
 
 // --- Keyboard Event Handler ---
 document.addEventListener('keydown', (e) => {

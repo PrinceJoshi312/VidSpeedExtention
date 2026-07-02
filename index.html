@@ -50,6 +50,9 @@
       <div class="video-wrapper" id="videoWrapper">
         <video id="mainVideo" preload="metadata" playsinline></video>
         
+        <!-- Video Speed Badge (Top Right Overlay) -->
+        <div class="video-speed-badge" id="videoSpeedBadge">1.00x</div>
+        
         <!-- Speed HUD Display (Flashes on Speed Change) -->
         <div class="speed-hud hidden" id="speedHud">
           <span class="speed-hud-value" id="speedHudValue">1.0x</span>
@@ -116,8 +119,8 @@
               <label for="stepSelect" class="small-label">Speed Step Size</label>
               <select id="stepSelect" class="dropdown-field">
                 <option value="0.05">0.05x (Fine)</option>
-                <option value="0.10" selected>0.10x (Standard)</option>
-                <option value="0.25">0.25x (Medium)</option>
+                <option value="0.10">0.10x (Standard)</option>
+                <option value="0.25" selected>0.25x (Medium)</option>
                 <option value="0.50">0.50x (Coarse)</option>
               </select>
             </div>
