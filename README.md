@@ -1,65 +1,72 @@
-# Tempo: Browser-Neutral Video Speed Control Extension
+# Tempo — Browser-Neutral Video Speed Control Extension
 
-A high-performance, browser-neutral browser extension (Manifest V3) that regulates video playback speed on any website (YouTube, Vimeo, Netflix, custom players, etc.) using your Numpad keyboard controls.
+A lightweight, high-performance browser extension (Manifest V3) that lets you control video playback speed on any website — YouTube, Vimeo, Netflix, custom HTML5 players, and more — using your numpad or standard keyboard.
 
 ## Features
-- **Browser Neutrality**: Dynamically supports the standard `chrome.*` and `browser.*` namespaces, ensuring compatibility with Chrome, Firefox, Edge, Safari, Brave, and other WebExtensions-compliant browsers.
-- **Global Injections**: Automatically detects HTML5 players on any web page.
-- **Numpad Mapping**: Fast, single-keypress speed regulations.
-- **Laptop Fallback**: Works on standard laptop keys too.
-- **Shadow DOM Overlay**: Premium HUD display inside the page that is protected from website CSS overrides.
-- **Responsive Popup Dashboard**: Accessible speed controls, customizable increments, and preset quick actions.
+
+- **Browser Neutral** — Works across the standard `chrome.*` and `browser.*` extension APIs, so it runs on Chrome, Firefox, Edge, Brave, Safari, and other WebExtensions-compliant browsers.
+- **Universal Detection** — Automatically finds and attaches to any HTML5 `<video>` element on a page.
+- **Numpad Shortcuts** — Fast, single-keypress speed changes.
+- **Laptop-Friendly Fallback** — Full functionality on keyboards without a numpad.
+- **Shadow DOM HUD** — An on-page overlay that displays the current speed, isolated from the host site's CSS so it always looks and behaves correctly.
+- **Popup Dashboard** — A responsive control panel with adjustable increments and speed presets.
 
 ---
 
-## Keyboard Controls Reference
+## Keyboard Controls
 
-| Action | Numpad Key | Standard Laptop Key |
+| Action | Numpad Key | Laptop Key |
 |---|---|---|
-| **Speed Up** | `Numpad +` | `+` or `=` |
-| **Slow Down** | `Numpad -` | `-` |
-| **Reset Speed (1.0x)** | `Numpad *` | `*` |
-| **Play / Pause** | `Numpad 5` | - |
-| **Seek Backward (5s)** | `Numpad 4` | - |
-| **Seek Forward (5s)** | `Numpad 6` | - |
+| Speed Up | `Numpad +` | `+` or `=` |
+| Slow Down | `Numpad -` | `-` |
+| Reset Speed (1.0x) | `Numpad *` | `*` |
+| Play / Pause | `Numpad 5` | — |
+| Seek Backward 5s | `Numpad 4` | — |
+| Seek Forward 5s | `Numpad 6` | — |
 
 > [!NOTE]
-> Keyboard hotkeys automatically disable when typing in text boxes, search fields, or textareas so they won't interfere with typing comments or search queries.
+> Shortcuts are automatically disabled while typing in text boxes, search fields, or textareas, so they won't interfere with normal typing.
 
 ---
 
-## How to Install the Extension in Your Browser
+## Installation
 
-Since this is in development format, you can load it directly into your preferred browser:
+This extension is currently in development/unpacked form and must be loaded manually.
 
-### For Chromium-Based Browsers (Chrome, Edge, Brave, Opera, Vivaldi)
-1. **Open Extension Management Page**:
-   - In Chrome, navigate to: `chrome://extensions/`
-   - Or click the Extensions menu (puzzle piece icon) and select **Manage Extensions**.
-2. **Enable Developer Mode**:
-   - Toggle the **Developer mode** switch in the top-right corner of the extensions page.
-3. **Load the Extension**:
-   - Click the **Load unpacked** button in the top-left corner.
-   - Select the workspace folder: `C:\Users\HP\OneDrive\Desktop\videospeedext`
-4. **Pin for Easy Access**:
-   - Click the extensions puzzle icon in the browser toolbar and pin **Tempo Video Speed Regulator**.
+### Chromium-Based Browsers (Chrome, Edge, Brave, Opera, Vivaldi)
 
-### For Mozilla Firefox (Gecko-Based)
-1. **Open Debugging Console**:
-   - In Firefox, navigate to: `about:debugging#/runtime/this-firefox`
-2. **Load Temporary Add-on**:
-   - Click the **Load Temporary Add-on...** button.
-3. **Select Manifest File**:
-   - Navigate to the workspace folder: `C:\Users\HP\OneDrive\Desktop\videospeedext` and choose the `manifest.json` file.
-4. **Test & Play**:
-   - The extension will instantly load and remain active for your current browser session.
+1. Go to `chrome://extensions/` (or open the puzzle-piece icon → **Manage Extensions**).
+2. Enable **Developer mode** (top-right toggle).
+3. Click **Load unpacked** and select the project folder (the one containing `manifest.json`).
+4. Click the puzzle-piece icon in the toolbar and pin **Tempo** for quick access.
+
+### Firefox (Gecko-Based)
+
+1. Go to `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on…**.
+3. Select the `manifest.json` file inside the project folder.
+
+> Firefox unloads temporary add-ons when the browser closes, so you'll need to reload it each session during development.
 
 ---
 
 ## Project Structure
 
-- [manifest.json](file:///C:/Users/HP/OneDrive/Desktop/videospeedext/manifest.json) – Configuration for Manifest V3.
-- [content.js](file:///C:/Users/HP/OneDrive/Desktop/videospeedext/content.js) – Content script injected into tabs. Handles keystrokes, controls HTML5 playback, and overlays the Shadow DOM HUD.
-- [popup.html](file:///C:/Users/HP/OneDrive/Desktop/videospeedext/popup.html) – UI layout for browser action panel.
-- [popup.css](file:///C:/Users/HP/OneDrive/Desktop/videospeedext/popup.css) – Premium styles for extension popup.
-- [popup.js](file:///C:/Users/HP/OneDrive/Desktop/videospeedext/popup.js) – Extension tab communication.
+```
+videospeedext/
+├── manifest.json   # Manifest V3 configuration
+├── content.js      # Injected into pages: handles keystrokes, playback control, and HUD overlay
+├── popup.html       # Popup UI layout
+├── popup.css        # Popup styling
+└── popup.js          # Popup ↔ tab communication logic
+```
+
+---
+
+## Contributing
+
+Issues and pull requests are welcome. If you run into a site where speed control doesn't work, please open an issue with the URL so the video-detection logic can be improved.
+
+## License
+
+*(Add your license here — e.g. MIT)*
