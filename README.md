@@ -1,4 +1,4 @@
-# Tempo — Browser-Neutral Video Speed Control Extension
+# Playback+ — Browser-Neutral Video Speed Control Extension
 
 A lightweight, high-performance browser extension (Manifest V3) that lets you control video playback speed on any website — YouTube, Vimeo, Netflix, custom HTML5 players, and more — using your numpad or standard keyboard.
 
@@ -29,43 +29,84 @@ A lightweight, high-performance browser extension (Manifest V3) that lets you co
 
 ---
 
-## Installation
+## Installation (from local file structure)
 
-This extension is currently in development/unpacked form and must be loaded manually.
+This extension isn't published on any extension store yet, so it needs to be loaded manually as an "unpacked" extension. This works directly from a folder on your computer — no build step required.
 
-### Chromium-Based Browsers (Chrome, Edge, Brave, Opera, Vivaldi)
+### 1. Get the files onto your machine
 
-1. Go to `chrome://extensions/` (or open the puzzle-piece icon → **Manage Extensions**).
+Clone the repo:
+
+```bash
+git clone https://github.com/<your-username>/playback-plus.git
+```
+
+Or download it as a ZIP from GitHub (**Code → Download ZIP**) and extract it somewhere memorable.
+
+You should end up with a folder containing at least:
+```
+manifest.json
+content.js
+popup.html
+popup.css
+popup.js
+```
+
+### 2. Load it into your browser
+
+**Chromium-based (Chrome, Edge, Brave, Opera, Vivaldi):**
+1. Go to `chrome://extensions/` (or Menu → Extensions → **Manage Extensions**).
 2. Enable **Developer mode** (top-right toggle).
-3. Click **Load unpacked** and select the project folder (the one containing `manifest.json`).
-4. Click the puzzle-piece icon in the toolbar and pin **Tempo** for quick access.
+3. Click **Load unpacked**.
+4. Select the folder you cloned/extracted — the one containing `manifest.json`.
+5. Click the puzzle-piece icon in the toolbar and pin **Playback+** for quick access.
 
-### Firefox (Gecko-Based)
-
+**Firefox (Gecko-based):**
 1. Go to `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on…**.
-3. Select the `manifest.json` file inside the project folder.
+3. Select the `manifest.json` file inside the folder.
 
-> Firefox unloads temporary add-ons when the browser closes, so you'll need to reload it each session during development.
+> [!WARNING]
+> Firefox removes temporary add-ons when the browser closes. You'll need to reload it via `about:debugging` each session, or package it properly (`web-ext build`) for persistent use.
+
+### 3. Updating
+
+Since it's loaded from a local folder, updates are simple:
+- Pull the latest changes (`git pull`) or re-download the ZIP.
+- On Chromium browsers, click the refresh icon on the extension's card in `chrome://extensions/`.
+- On Firefox, reload the temporary add-on from `about:debugging`.
+
+---
+
+## Usage
+
+Once installed, navigate to any page with a video (YouTube, Netflix, a raw `<video>` tag, etc.):
+
+1. Click into the page (the tab needs focus) so keyboard shortcuts are picked up.
+2. Use the keys from the [Keyboard Controls](#keyboard-controls) table to change speed, seek, or play/pause.
+3. A small HUD will briefly appear on screen confirming the new speed.
+4. Alternatively, click the **Playback+** icon in your toolbar to open the popup dashboard, where you can set a precise speed, adjust the increment size, or use one-click presets.
+
+Shortcuts are automatically suspended while a text field is focused, so you can type in comments, search bars, etc. without accidentally changing playback speed.
 
 ---
 
 ## Project Structure
 
 ```
-videospeedext/
+playback-plus/
 ├── manifest.json   # Manifest V3 configuration
 ├── content.js      # Injected into pages: handles keystrokes, playback control, and HUD overlay
-├── popup.html       # Popup UI layout
-├── popup.css        # Popup styling
-└── popup.js          # Popup ↔ tab communication logic
+├── popup.html      # Popup UI layout
+├── popup.css       # Popup styling
+└── popup.js        # Popup ↔ tab communication logic
 ```
 
 ---
 
 ## Contributing
 
-Issues and pull requests are welcome. If you run into a site where speed control doesn't work, please open an issue with the URL so the video-detection logic can be improved.
+Issues and pull requests are welcome. If you find a site where speed control doesn't work correctly, please open an issue with the URL so the video-detection logic can be improved.
 
 ## License
 
