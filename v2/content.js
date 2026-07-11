@@ -174,30 +174,30 @@ function createOrUpdateBadge(video) {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
         cursor: default !important;
         user-select: none !important;
-        opacity: 0 !important;
+        opacity: 0.3 !important;
         transform: scale(0.95);
         transition: opacity 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, border-color 0.3s ease !important;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         white-space: nowrap !important;
-        pointer-events: none !important;
+        pointer-events: auto !important;
       }
       .tempo-badge.active-speed {
-        opacity: 0.25;
-        background: rgba(15, 23, 42, 0.4) !important;
-        border-color: rgba(255, 255, 255, 0.1) !important;
+        opacity: 0.35;
+        background: rgba(15, 23, 42, 0.6) !important;
+        border-color: rgba(99, 102, 241, 0.3) !important;
         pointer-events: auto !important;
       }
       .tempo-badge.parent-hovered {
-        opacity: 0.45;
+        opacity: 0.6;
         transform: scale(1);
         pointer-events: auto !important;
       }
       .tempo-badge.active-speed.parent-hovered {
-        opacity: 0.65;
+        opacity: 0.7;
         background: rgba(15, 23, 42, 0.7) !important;
-        border-color: rgba(99, 102, 241, 0.3) !important;
+        border-color: rgba(99, 102, 241, 0.4) !important;
         pointer-events: auto !important;
       }
       .tempo-badge:hover,
