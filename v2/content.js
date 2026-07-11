@@ -103,11 +103,35 @@ function showSpeedHUD(speed) {
 }
 
 // --- Shadow DOM Video Speed Badge ---
+// --- Shadow DOM Video Speed Badge ---
 function createOrUpdateBadge(video) {
   if (!video || !video.isConnected) return;
   
   const parent = video.parentElement;
   if (!parent) return;
+
+  // Track parent hover in JS to update badge opacity
+  if (!parent.__tempo_hover_setup) {
+    parent.__tempo_hover_setup = true;
+    
+    const updateHoverState = (isHovered) => {
+      const host = parent.querySelector('.__tempo_video_badge_host__');
+      if (host && host.shadowRoot) {
+        const b = host.shadowRoot.getElementById('tempo-badge-element');
+        if (b) {
+          if (isHovered) {
+            b.classList.add('parent-hovered');
+          } else {
+            b.classList.remove('parent-hovered');
+          }
+        }
+      }
+    };
+
+    parent.addEventListener('mouseenter', () => updateHoverState(true));
+    parent.addEventListener('mouseleave', () => updateHoverState(false));
+    parent.addEventListener('mousemove', () => updateHoverState(true));
+  }
 
   // Ensure parent is positioned to host our absolute badge
   const computedStyle = window.getComputedStyle(parent);
@@ -150,25 +174,40 @@ function createOrUpdateBadge(video) {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
         cursor: default !important;
         user-select: none !important;
-        opacity: 0.35;
-        transform: scale(1);
+        opacity: 0 !important;
+        transform: scale(0.95);
         transition: opacity 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, border-color 0.3s ease !important;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         white-space: nowrap !important;
+        pointer-events: none !important;
       }
       .tempo-badge.active-speed {
-        opacity: 0.85;
-        background: rgba(15, 23, 42, 0.8) !important;
-        border-color: rgba(99, 102, 241, 0.5) !important;
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2), 0 0 8px rgba(99, 102, 241, 0.1) !important;
+        opacity: 0.25;
+        background: rgba(15, 23, 42, 0.4) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        pointer-events: auto !important;
       }
-      .tempo-badge:hover {
+      .tempo-badge.parent-hovered {
+        opacity: 0.45;
+        transform: scale(1);
+        pointer-events: auto !important;
+      }
+      .tempo-badge.active-speed.parent-hovered {
+        opacity: 0.65;
+        background: rgba(15, 23, 42, 0.7) !important;
+        border-color: rgba(99, 102, 241, 0.3) !important;
+        pointer-events: auto !important;
+      }
+      .tempo-badge:hover,
+      .tempo-badge.parent-hovered:hover {
         opacity: 1 !important;
         transform: scale(1.05) !important;
         background: rgba(15, 23, 42, 0.9) !important;
         border-color: rgba(99, 102, 241, 0.8) !important;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2), 0 0 8px rgba(99, 102, 241, 0.1) !important;
+        pointer-events: auto !important;
       }
       .tempo-badge.pop {
         transform: scale(1.3) !important;
@@ -228,6 +267,9 @@ function createOrUpdateBadge(video) {
     badge = document.createElement('div');
     badge.id = 'tempo-badge-element';
     badge.className = 'tempo-badge';
+    if (parent.matches(':hover')) {
+      badge.classList.add('parent-hovered');
+    }
     
     // Create Down Button
     const btnDown = document.createElement('button');
