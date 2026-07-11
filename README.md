@@ -1,15 +1,15 @@
-# Playback+ — Browser-Neutral Video Speed Control Extension
+# Playback+ - Browser-Neutral Video Speed Control Extension
 
-A lightweight, high-performance browser extension (Manifest V3) that lets you control video playback speed on any website — YouTube, Vimeo, Netflix, custom HTML5 players, and more — using your numpad or standard keyboard.
+A lightweight, high-performance browser extension (Manifest V3) that lets you control video playback speed on any website - YouTube, Vimeo, Netflix, custom HTML5 players, and more - using your numpad or standard keyboard.
 
 ## Features
 
-- **Browser Neutral** — Works across the standard `chrome.*` and `browser.*` extension APIs, so it runs on Chrome, Firefox, Edge, Brave, Safari, and other WebExtensions-compliant browsers.
-- **Universal Detection** — Automatically finds and attaches to any HTML5 `<video>` element on a page.
-- **Numpad Shortcuts** — Fast, single-keypress speed changes.
-- **Laptop-Friendly Fallback** — Full functionality on keyboards without a numpad.
-- **Shadow DOM HUD** — An on-page overlay that displays the current speed, isolated from the host site's CSS so it always looks and behaves correctly.
-- **Popup Dashboard** — A responsive control panel with adjustable increments and speed presets.
+- **Browser Neutral** - Works across the standard `chrome.*` and `browser.*` extension APIs, so it runs on Chrome, Firefox, Edge, Brave, Safari, and other WebExtensions-compliant browsers.
+- **Universal Detection** - Automatically finds and attaches to any HTML5 `<video>` element on a page.
+- **Numpad Shortcuts** - Fast, single-keypress speed changes.
+- **Laptop-Friendly Fallback** - Full functionality on keyboards without a numpad.
+- **Shadow DOM HUD** - An on-page overlay that displays the current speed, isolated from the host site's CSS so it always looks and behaves correctly.
+- **Popup Dashboard** - A responsive control panel with adjustable increments and speed presets.
 
 ---
 
@@ -31,14 +31,14 @@ A lightweight, high-performance browser extension (Manifest V3) that lets you co
 
 ## Installation (from local file structure)
 
-This extension isn't published on any extension store yet, so it needs to be loaded manually as an "unpacked" extension. This works directly from a folder on your computer — no build step required.
+This extension isn't published on any extension store yet, so it needs to be loaded manually as an "unpacked" extension. This works directly from a folder on your computer - no build step required.
 
 ### 1. Get the files onto your machine
 
 Clone the repo:
 
 ```bash
-git clone https://github.com/<your-username>/playback-plus.git
+git clone https://github.com/PrinceJoshi312/playback-plus.git
 ```
 
 Or download it as a ZIP from GitHub (**Code → Download ZIP**) and extract it somewhere memorable.
