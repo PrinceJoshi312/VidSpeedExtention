@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <h1 class="popup-title"><span class="gradient-text">Tempo</span> Speed</h1>
+    </header>
+
+    <!-- Speedometer Panel -->
+    <main class="popup-content">
+      <section class="speedometer-section">
+        <span class="small-label">Active Playback Speed</span>
+        <div class="speedometer-value-wrapper">
+          <span class="speedometer-value" id="speedDisplay">1.00x</span>
+        </div>
+      </section>
+
+      <!-- Settings & Controls -->
+      <section class="settings-section">
+        <div class="settings-action-row">
+          <div class="select-wrapper">
+            <label for="stepSelect" class="small-label">Step Size</label>
+            <select id="stepSelect" class="dropdown-field">
+              <option value="0.05">0.05x (Fine)</option>
+              <option value="0.10">0.10x (Standard)</option>
+              <option value="0.25" selected>0.25x (Medium)</option>
+              <option value="0.50">0.50x (Coarse)</option>
+            </select>
+          </div>
+          
+          <button id="togglePresetsBtn" class="btn-icon-only" aria-label="Toggle Presets Panel" title="Toggle Speed Presets Panel">
+            <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Hidden Presets Panel (Collapsible) -->
+        <div id="presetsPanel" class="presets-panel collapsible">
+          <span class="small-label">Speed Presets</span>
+          <div class="presets-grid">
+            <button class="preset-btn" data-speed="0.25">0.25x</button>
+            <button class="preset-btn" data-speed="0.5">0.50x</button>
+            <button class="preset-btn" data-speed="1.0">1.00x</button>
+            <button class="preset-btn" data-speed="1.25">1.25x</button>
+            <button class="preset-btn" data-speed="1.5">1.50x</button>
+            <button class="preset-btn" data-speed="2.0">2.00x</button>
+            <button class="preset-btn" data-speed="3.0">3.00x</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Guide -->
+      <section class="guide-section">
+        <span class="small-label">Keyboard Reference</span>
+        <div class="guide-list">
+          <div class="guide-item">
+            <kbd class="key-cap">Numpad +</kbd>
+            <span class="key-desc">Speed Up</span>
+          </div>
+          <div class="guide-item">
+            <kbd class="key-cap">Numpad -</kbd>
+            <span class="key-desc">Slow Down</span>
+          </div>
+          <div class="guide-item">
+            <kbd class="key-cap">Numpad *</kbd>
+            <span class="key-desc">Reset (1x)</span>
+          </div>
+          <div class="guide-item">
+            <kbd class="key-cap">Numpad 5</kbd>
+            <span class="key-desc">Play / Pause</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

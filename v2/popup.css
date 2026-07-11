@@ -1,0 +1,298 @@
+/* Chrome Extension Popup Custom Design */
+:root {
+  --font-primary: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-accent: 'Outfit', sans-serif;
+  
+  --bg-base: #060814;
+  --bg-surface: rgba(15, 23, 42, 0.6);
+  --bg-control: rgba(30, 41, 59, 0.6);
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --color-indigo: #6366f1;
+  --color-violet: #8b5cf6;
+  --color-pink: #ec4899;
+  
+  --grad-primary: linear-gradient(135deg, var(--color-indigo) 0%, var(--color-violet) 50%, var(--color-pink) 100%);
+  --grad-glow: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(236, 72, 153, 0.05) 50%, transparent 100%);
+  
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  width: 300px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background gradient effect */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--grad-glow);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.popup-container {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+.popup-title {
+  font-family: var(--font-accent);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.gradient-text {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Content Sections */
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.speedometer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.small-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.speedometer-value-wrapper {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.speedometer-value {
+  font-family: var(--font-accent);
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: transparent;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 25px rgba(99, 102, 241, 0.35);
+}
+
+/* Settings section */
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.settings-action-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-grow: 1;
+}
+
+.dropdown-field {
+  background-color: var(--bg-control);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  transition: all var(--transition-fast);
+}
+
+.dropdown-field:focus {
+  border-color: var(--color-indigo);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Icons and Presets Panel Toggle */
+.btn-icon-only {
+  background: var(--bg-control);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.btn-icon-only:hover {
+  color: var(--text-primary);
+  border-color: var(--color-indigo);
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.settings-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.6s ease;
+}
+
+.btn-icon-only:hover .settings-icon {
+  transform: rotate(45deg);
+}
+
+/* Collapsible speed presets panel */
+.collapsible {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--transition-normal) ease-out, opacity var(--transition-normal) ease-out, margin-top var(--transition-normal) ease-out;
+}
+
+.collapsible.show {
+  max-height: 150px;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+.presets-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+}
+
+.preset-btn {
+  background-color: rgba(30, 41, 59, 0.5);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-accent);
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0.35rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preset-btn:hover {
+  background-color: var(--color-indigo);
+  border-color: var(--color-indigo);
+  color: #fff;
+}
+
+.preset-btn.active {
+  background: var(--grad-primary);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* Guides list */
+.guide-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.75rem;
+}
+
+.guide-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.guide-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+}
+
+.key-cap {
+  background-color: #1e293b;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 0.15rem 0.35rem;
+  font-family: var(--font-accent);
+  font-size: 0.65rem;
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.key-desc {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}

@@ -1,0 +1,17 @@
+{
+  "name": "videospeedext",
+  "version": "1.0.0",
+  "description": "Premium video speed regulator web embedder with numpad controls.",
+  "scripts": {
+    "dev": "npx -y serve ."
+  },
+  "keywords": [
+    "video",
+    "speed",
+    "regulator",
+    "numpad",
+    "embedder"
+  ],
+  "author": "",
+  "license": "ISC"
+}

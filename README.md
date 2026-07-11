@@ -91,16 +91,16 @@ Shortcuts are automatically suspended while a text field is focused, so you can 
 
 ---
 
-## Project Structure
+This repository contains two versions of the extension:
 
-```
-playback-plus/
-├── manifest.json   # Manifest V3 configuration
-├── content.js      # Injected into pages: handles keystrokes, playback control, and HUD overlay
-├── popup.html      # Popup UI layout
-├── popup.css       # Popup styling
-└── popup.js        # Popup ↔ tab communication logic
-```
+### 📁 [v1 - Keyboard-Only Version](v1)
+- The original version mapping video playback controls exclusively to the numpad/laptop keyboard.
+- Contains its own standalone `manifest.json`, `content.js`, `index.html`, and popup components.
+
+### 📁 [v2 - Keyboard & Mouse Controls Version (Upgraded)](v2)
+- The upgraded version adding interactive, hoverable, and clickable 3D keycap-style arrow buttons directly on the video speed badges.
+- Allows full mouse-click regulation of speed step-up, step-down, and reset to 1x, while keeping all key mappings active.
+- Contains its own standalone `manifest.json`, `content.js`, `index.html`, and popup components.
 
 ---
 

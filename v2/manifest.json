@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Tempo Video Speed Regulator",
+  "version": "1.0.0",
+  "description": "Regulate video playback speed on any website using your Numpad (+ for speedup, - for slowdown, * for normal speed).",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tempo Player Controls"
+  }
+}
