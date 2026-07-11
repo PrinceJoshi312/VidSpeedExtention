@@ -108,6 +108,3 @@ This repository contains two versions of the extension:
 
 Issues and pull requests are welcome. If you find a site where speed control doesn't work correctly, please open an issue with the URL so the video-detection logic can be improved.
 
-## License
-
-*(Add your license here — e.g. MIT)*
